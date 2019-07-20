@@ -1,13 +1,16 @@
-.PHONY: run clean
+.PHONY: run clean debug
 
 clean:
 	rm -rf Mobile.framework main
 
 Mobile.framework:
-	gomobile bind -a -v -target=ios .
+	gomobilex bind -v -target=ios -work .
 
 main: Mobile.framework
-	swiftc -F. main.swift
+	swiftc -g -F. main.swift
 
 run: main
 	./main
+
+debug: Mobile.framework
+	swift -F . -g ./main.swift
